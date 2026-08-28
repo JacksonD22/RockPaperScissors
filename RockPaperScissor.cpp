@@ -14,6 +14,7 @@ const int draw = 0;
 const int win = 1;
 const int loss = 2;
 
+void intro();
 void displayChoices(const int, const int, const int, const int);
 int getChoice(int);
 int getComputerChoice();
@@ -30,6 +31,7 @@ int main() {
 	int draws = 0; 
 	int userChoice = 5; 
 
+	intro();
 	while (userChoice != quit) {
 		displayChoices(scissors, rock, paper, quit);
 		userChoice = getChoice(userChoice);
@@ -49,8 +51,11 @@ int main() {
 	return 0;
 }
 
-void displayChoices(const int scissors, const int rock, const int paper, const int quit) {
+void intro() {
 	cout << "Welcome to the rock, paper, scissors tournament!\n";
+}
+
+void displayChoices(const int scissors, const int rock, const int paper, const int quit) {
 	cout << "You can choose one of the following actions.\n";
 	cout << " " << scissors << ": Scissors\n " << rock << ": Paper\n " << paper << ": Rock\n " << quit << ": Quit(end your tournament)\n";
 }
@@ -148,6 +153,4 @@ void displayFinalResults(int& wins, int& losses, int& draws) {
 
 void displayError(int userChoice) {
 	cout << "You have selected an invalid number, try again\n";
-	cout << "You can choose one of the following actions.\n 3: Scissors\n 2: Paper\n 1: Rock\n 0: Quit (end your tournament)\n"; 
-	getChoice(userChoice);
 }
