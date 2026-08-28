@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="RockPaperScissors.vcxproj" />
+  <Project Path="RockPaperScissors.vcxproj" Id="02c5239a-a171-4d50-a60b-9c73b6412053" />
 </Solution>
