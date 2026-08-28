@@ -36,13 +36,11 @@ int main() {
 	while (userChoice != quit) {
 		displayChoices(scissors, rock, paper, quit);
 		userChoice = getChoice(userChoice);
-		if (userChoice < 4 && userChoice > 0) {
+		if (userChoice <= scissors && userChoice >= rock) {
 			int computerChoice = getComputerChoice();
-			cout << computerChoice;
 			displayComputerChoice(computerChoice, scissors, rock, paper);
 			displayUserChoice(userChoice, scissors, rock, paper);
 			int result = chooseWinner(userChoice, computerChoice, scissors, rock, paper, draw, loss, win, draws, wins, losses);
-			cout << result;
 			displayWinner(result, wins, losses, draws, win, loss, draw);
 			displayResults(wins, losses, draws);
 		}
@@ -66,8 +64,8 @@ void displayChoices(const int scissors, const int rock, const int paper, const i
 }
 
 int getChoice(int userChoice) {
-	cout << "Enter the cooresponding number below to make your move.\n";
-		cin >> userChoice;
+	cout << "Enter the cooresponding number above to make your move.\n";
+	cin >> userChoice; cout << endl;
 		return userChoice;
 }
 
@@ -102,70 +100,64 @@ void displayUserChoice(int userChoice, const int scissors, const int rock, const
 }
 
 int chooseWinner(int userChoice, int computerChoice, const int scissors, const int rock, const int paper, const int draw, const int loss, const int win, int& draws, int& wins, int& losses) {
-	int result;
+	int result = draw;;
 
 
 	if (computerChoice == userChoice) {
 		result = draw;
 		draws++;
+		
 	}
 
-	while (computerChoice != userChoice) {
+	else if (computerChoice != userChoice) {
 		if (userChoice == scissors && computerChoice == rock) {
 			result = loss;
 			losses++;
-			return result;
 		}
 		else if (userChoice == scissors && computerChoice == paper) {
 			result = win;
 			wins++;
-			return result;
 		}
-
 
 		else if (userChoice == rock && computerChoice == scissors) {
 			result = win;
 			wins++;
-			return result;
 		}
 		else if (userChoice == rock && computerChoice == paper) {
 			result = loss;
-			losses++;
-			return result;
+			losses++;	
 		}
 
 		else if (userChoice == paper && computerChoice == scissors) {
 			result = loss;
 			losses++;
-			return result;
 		}
 		else if (userChoice == paper && computerChoice == rock) {
 			result = win;
-			wins++;
-			return result;
+			wins++;	
 		}
+		
 	}
+	return result;
 }
-
 
 void displayWinner(int result, int& wins, int& losses, int& draws, const int win, const int loss, const int draw) {
-	if (result == win) {
-		cout << "Congratulations, you won!\n";
+	if (result == draw) {
+		cout << "Not exactly a win, but at least you didn't lose. \n";
+	}
+	else {
+		if (result == win) {
+			cout << "Congrats, you won! \n";
+		}
+		else {
+			cout << "Sorry, you lost, keep going. \n";
+		}
 	}
 
-	else if (result == loss) {
-		cout << "Sorry, you lost, try again.\n";
-	}
-
-	else  {
-		cout << "Not exactly a win, but you didn't lose, keep going!\n";
-	}
-
-
-}
+}	
 
 void displayResults(int& wins, int& losses, int& draws) {
-	cout << "Your total score is...\n Wins: " << wins << "\n Losses: " << losses << "\n Draws: " << draws << endl; cout << endl;
+	cout << "Your currrent score is...\n Wins: " << wins << "\n Losses: " << losses << "\n Draws: " << draws << endl; cout << endl;
 }
 
 void displayFinalResults(int& wins, int& losses, int& draws) {
@@ -180,5 +172,5 @@ void displayFinalResults(int& wins, int& losses, int& draws) {
 }
 
 void displayError(int userChoice) {
-	cout << "You have selected an invalid number, try again\n";
+	cout << userChoice << " Is not a valid response, try again\n";
 }
