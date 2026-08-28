@@ -33,25 +33,26 @@ int main() {
 	while (userChoice != quit) {
 		displayChoices(scissors, rock, paper, quit);
 		userChoice = getChoice(userChoice);
+		if (userChoice < 4 && userChoice > 0) {
+			int computerChoice = getComputerChoice();
+			int result = chooseWinner(userChoice, computerChoice, scissors, rock, paper, draw, loss, win, draws, wins, losses);
+			displayWinner(result, wins, losses, draws, win, loss, draw);
+			displayResults(wins, losses, draws);
+		}
+
+		else if (userChoice == quit) {
+			displayFinalResults(wins, losses, draws);
+		}
+		else
+			displayError(userChoice);
 	}
-	if (userChoice < 4 && userChoice > 0) {
-		int computerChoice = getComputerChoice();
-		int result = chooseWinner(userChoice, computerChoice, scissors, rock, paper, draw, loss, win, draws, wins, losses);
-		displayWinner(result, wins, losses, draws, win, loss, draw);
-		displayResults(wins, losses, draws);
-	}
-	else if (userChoice == quit) {
-		displayFinalResults(wins, losses, draws);
-	}
-	else
-		displayError(userChoice);
 	return 0;
 }
 
 void displayChoices(const int scissors, const int rock, const int paper, const int quit) {
 	cout << "Welcome to the rock, paper, scissors tournament!\n";
 	cout << "You can choose one of the following actions.\n";
-	cout << scissors, ": Scissors\n ", rock, ": Paper\n ", paper, ": Rock\n ", quit, ": Quit(end your tournament)\n";
+	cout << " " << scissors << ": Scissors\n " << rock << ": Paper\n " << paper << ": Rock\n " << quit << ": Quit(end your tournament)\n";
 }
 
 int getChoice(int userChoice) {
@@ -80,33 +81,38 @@ int chooseWinner(int userChoice, int computerChoice, const int scissors, const i
 		if (computerChoice == rock) {
 			result = loss;
 			losses++;
+			return result;
 		}
 		else {
 			result = win;
 			wins++;
+			return result;
 		}
 	}
 	else if (userChoice == rock) {
 		if (computerChoice == scissors) {
 			result = win;
 			wins++;
+			return result;
 		}
 		else {
 			result = loss;
 			losses++;
+			return result;
 		}
 	}
 	else if (userChoice == paper) {
 		if (computerChoice == scissors) {
 			result = loss;
 			losses++;
+			return result;
 		}
 		else {
 			result = win;
 			wins++;
+			return result;
 		}
 	}
-	return result;
 }
 
 void displayWinner(int result, int& wins, int& losses, int& draws, const int win, const int loss, const int draw) {
@@ -118,7 +124,7 @@ void displayWinner(int result, int& wins, int& losses, int& draws, const int win
 		cout << "Sorry, you lost, try again.\n";
 	}
 
-	else if (result == draw) {
+	else  {
 		cout << "Not exactly a win, but you didn't lose, keep going!\n";
 	}
 
@@ -126,12 +132,12 @@ void displayWinner(int result, int& wins, int& losses, int& draws, const int win
 }
 
 void displayResults(int& wins, int& losses, int& draws) {
-	cout << "Your total score is...\n Wins: ", wins, "\n Losses: ", losses, "\n Draws: ", draws; cout << endl;
+	cout << "Your total score is...\n Wins: " << wins << "\n Losses: " << losses << "\n Draws: " << draws << endl; cout << endl;
 }
 
 void displayFinalResults(int& wins, int& losses, int& draws) {
 	cout << "Thanks for playing!\n";
-	cout << "Your final score is...\n Wins: ", wins, "\n Losses: ", losses, "\n Draws: ", draws; cout << endl;
+	cout << "Your final score is...\n Wins: " << wins << "\n Losses: " << losses << "\n Draws: " << draws << endl; cout << endl;
 	if (wins > losses) {
 		cout << "You beat the computer!\n";
 	}
